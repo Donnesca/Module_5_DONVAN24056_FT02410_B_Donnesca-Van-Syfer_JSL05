@@ -62,17 +62,32 @@ playlist.forEach((playlist) => {
   const guardians = Object.keys(playlist)[0];
   const playlistSongs = playlist[guardians];
 
-  const guardianHeading = document.createElement("h1");
+  const playlistDiv = document.createElement("div"); //created a div for the playlist
+  playlistDiv.classList.add("playlist"); //Added the "playlist" class
+
+  const guardianHeading = document.createElement("h2");
   guardianHeading.textContent = `${guardians}'s Playlist:`;
-  document.body.appendChild(guardianHeading);
+  playlistDiv.appendChild(guardianHeading);
 
   const playlistList = document.createElement("ul");
   playlistSongs.forEach((songs) => {
     const listItem = document.createElement("li");
-    listItem.textContent = `${songs.title} by ${songs.artist}`;
+    listItem.classList.add("song"); //"Song" class added to the list item
+
+    const songTitleSpan = document.createElement("span"); //Span for the title
+    songTitleSpan.classList.add("song-title"); //"song-title" class added
+    songTitleSpan.textContent = songs.title; //Title set
+
+    const songArtistSpan = document.createElement("span"); //This span is for the artist
+    songArtistSpan.textContent = ` by ${songs.artist}`; // Artist added
+
+    listItem.appendChild(songTitleSpan);
+    listItem.appendChild(songArtistSpan);
+
     playlistList.appendChild(listItem);
   });
-  document.body.appendChild(playlistList);
+  playlistDiv.appendChild(playlistList);
+  document.body.appendChild(playlistDiv);
 });
 // Call generatePlaylist and display the playlists for each Guardian
 generatePlaylist(guardians, songs);
